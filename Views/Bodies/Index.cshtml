@@ -1,0 +1,61 @@
+﻿@model IEnumerable<LabaISTP_2.Body>
+
+@{
+    ViewData["Title"] = "Bodies";
+}
+
+<h1>Кузови</h1>
+
+<p>
+    <a asp-action="Create">Додати новий кузов</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BodyName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BodyName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BodyId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.BodyId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.BodyId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="container">
+    <div id="chart1"></div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            $.get('/api/BodiesCharts/JsonData', function (JsonData) {
+                data = google.visualization.arrayToDataTable(JsonData, false);
+                var option = {
+                    title: "Співвідношення кількості авто та кузовів",
+                    width: 500,
+                    height: 400
+                };
+                chart = new google.visualization.PieChart(document.getElementById('chart1'));
+                chart.draw(data, option);
+            })
+        }
+    </script>
+}

@@ -1,0 +1,48 @@
+﻿@model LabaISTP_2.CarSale
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>CarSale</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Seller)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Seller.SellerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Customer.CustomerName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car.Brand)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.Brand.BrandName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Car)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Car.Model)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.CarSaleId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

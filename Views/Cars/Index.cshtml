@@ -1,0 +1,105 @@
+﻿@model LabaISTP_2.CarsListViewModel
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<h1>Автомобілі</h1>
+
+<p>
+    <a asp-action="Create">Додати новий автомобіль</a>
+</p>
+
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label" style="margin:10px"> Бренд: </label>
+        @Html.DropDownList("Brand", Model.Brands as SelectList,
+       htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label" style="margin:10px"> Кузов: </label>
+        @Html.DropDownList("Body", Model.Bodies as SelectList,
+       htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label" style="margin:10px"> Колір: </label>
+        @Html.DropDownList("Color", Model.Colors as SelectList,
+       htmlAttributes: new { @class = "form-control" })
+
+        <label class="control-label" style="margin:10px"> Рік випуску: </label>
+        @Html.DropDownList("Year", Model.Years as SelectList,
+       htmlAttributes: new { @class = "form-control" })
+
+        <input type="submit" value="Фильтр" class="btn btn-default" />
+
+        <a asp-action="Index" style="margin:10px" class="btn btn-default"> Скинути фільтр </a>
+
+        <hr />
+
+        <label class="control-label" style="font-size:1.3em; color:#202020; margin:10px"> Завантаження інформації у файл </label>
+        <input type="submit" asp-action="Export" value="Завантажити" class="btn btn-outline-secondary" />
+    </div>
+</form>
+
+<hr />
+
+<div>
+    <label class="control-label" style="font-size:1.3em; color:#202020"> Оберіть excel-файл для завантаження </label>
+    @using (Html.BeginForm("Import", "Cars", FormMethod.Post,
+ new { enctype = "multipart/form-data", id = "frm-excel" }))
+    {
+        <div>
+            Завантажте Excel-файл:
+            <input type="file" name="fileExcel" id="fileExcel" style="margin:5px" />
+            <div>
+                <input type="submit" value="Завантажити" class="btn btn-outline-secondary" />
+            </div>
+        </div>
+    }
+
+    <hr />
+</div>
+
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Бренд</th>
+            <th>Модель</th>
+            <th>Кузов</th>
+            <th>Рік випуску</th>
+            <th> VIN-код</th>
+            <th>Колір</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Cars)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Brand.BrandName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Body.BodyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarYear)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vin)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Color.ColorName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CarId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CarId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CarId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<LabaISTP_2.Seller>
+
+@{
+    ViewData["Title"] = "Sellers";
+}
+
+<h1>Продавці</h1>
+
+<p>
+    <a asp-action="Create">Додати нового продавця</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SellerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.City)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SellerName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.City.CityName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.SellerId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.SellerId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.SellerId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

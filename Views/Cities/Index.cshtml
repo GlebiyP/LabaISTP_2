@@ -1,0 +1,42 @@
+﻿@model IEnumerable<LabaISTP_2.City>
+
+@{
+    ViewData["Title"] = "Міста за країнами";
+}
+
+<h1>Міста за країною @ViewBag.CountryName </h1>
+
+<p>
+    @Html.ActionLink("Додати нове місто", "Create", new { countryId = ViewBag.CountryId })
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Country)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Country.CountryName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.CityId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.CityId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.CityId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
